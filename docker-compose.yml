@@ -1,0 +1,10 @@
+version: '3'
+services:
+  wishbone:
+    build: 
+        context: .
+        dockerfile: D_wishbone
+    tty: true
+    command: ["/bin/bash"]
+    volumes:
+      - "/home/vagrant/bootstap.yml:/tmp/bootstrap.yaml"

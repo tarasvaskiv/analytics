@@ -1,0 +1,3 @@
+FROM            smetj/wishbone:develop
+MAINTAINER      Taras Vaskiv
+RUN             /opt/python/bin/pip3 install test_wishbone
