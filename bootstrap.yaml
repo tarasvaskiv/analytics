@@ -1,0 +1,43 @@
+module_functions:
+    make_grand_total:
+        function: wishbone_external.function.module.grandtotal
+
+template_functions:
+    get_price:
+        function: wishbone.function.template.random_integer
+        arguments:
+            minimum: 1
+            maximum: 100
+
+modules:
+    input:
+        module: wishbone.module.input.generator
+        arguments:
+            payload:
+                articles:
+                    article1: "{{ get_price() }}"
+                    article2: "{{ get_price() }}"
+                    article3: "{{ get_price() }}"
+                    article4: "{{ get_price() }}"
+            interval: 2
+    count_filter:
+        module: wishbone_contrib.module.flow.higherlowerfilter
+
+    output:
+        module: wishbone.module.output.stdout
+        functions:
+            inbox:
+                - make_grand_total
+        arguments:
+            selection: '.'
+
+    output_colored:
+        module: wishbone.module.output.stdout
+        arguments:
+            colorize: true
+            foreground_color: GREEN
+
+routingtable:
+        - input.outbox -> count_filter.inbox
+        - count_filter.higher -> output.inbox
+        - count_filter.lower -> output_colored.inbox

@@ -1,7 +1,7 @@
 
 echo 'starting setup for server'
 sudo dnf update
-sudo dnf install vim ufw python-virtualenv -y
+sudo dnf install vim ufw python-virtualenv git -y
 
 # install docker here
 sudo dnf install dnf-plugins-core -y
